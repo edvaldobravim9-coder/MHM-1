@@ -3,6 +3,12 @@
 ## Objetivo atual
 **Fase 4 — Arquiteturas** (corrente aberta): testar as hipóteses H1–H5 por simulação
 e consolidar o veredito de design da célula MHM-1.
+**Foco do autor (17/11): APLICAÇÃO DE JOGO primeiro, sem deixar trabalho/tarefas
+pesadas de fora.** Consequência honesta: o que a física entrega de sobra (escrita
+1–2 ns, persistência, fJ) serve o jogo via console/handheld ligar-na-hora, save/
+resume instantâneo e bateria — NÃO serve banda de VRAM (território GDDR/HBM, fora
+do escopo). O gargalo do lado jogo é LEITURA em rajada → F6.1 e Fase 5 (Perfil-B)
+são o ataque.
 
 ## Status geral do projeto (~40–45%)
 - Fases 1–3 **ENCERRADAS**: ferramentas validadas (MuMax3 + solver FDT próprio,
@@ -52,18 +58,16 @@ e consolidar o veredito de design da célula MHM-1.
   em ngspice + PTM grátis) e A-4f (SOT-write, H4) na fila; H5 avaliar/arquivar.
 
 ## Próximos passos
-1. A-4c2: solver LLGS de 2 sub-redes (H2 ferrimagnético) — validação contra macrospin
-   (campanha em background; ver Em andamento).
-2. F6.1: SA real em ngspice + modelos PTM grátis (ataque ao ponto fraco de leitura).
-3. A-4f: estimativa de célula SOT-write (H4 — a hipótese menos coberta).
-4. **Dois perfis de design** (pedido do usuário, 17/11): mesma célula, duas
-   organizações de array — **Perfil-P** (persistência/trabalho: blocos grandes,
-   latência de escrita) e **Perfil-B** (banda/jogos: bancos paralelos; a H4 —
-   escrita paralela SOT + seleção VCMA — é o mecanismo de vazão). Avaliar na
-   Fase 5 (C_BL dos dois layouts) e Fase 6 (sistema com Ramulator2); ressalva:
-   leitura em rajada (ponto fraco) pode limitar o Perfil-B.
+1. A-4c2: solver LLGS de 2 sub-redes (H2 ferrimagnético) — campanha em background
+   (ver Em andamento).
+2. **F6.1 (PRIORIDADE SUBIU — foco do autor é JOGO, com trabalho incluído)**:
+   SA real em ngspice + modelos PTM grátis — a leitura em rajada é o gargalo do
+   lado jogo.
+3. **Fase 5 desenhar Perfil-B primeiro** (bancos paralelos; H4 = escrita em rajada),
+   Perfil-P como fallback de valor garantido (trabalho/infra).
+4. A-4f: célula SOT-write (H4) — escrita paralela = banda de escrita para jogo.
 5. H5 (3D): arquivar com justificativa (recomendação registrada no paisagem_ip.md §4).
-6. Fase 5 (matriz 16×16, C_BL real) e Fase 6 (controladora) em seguida.
+6. Fase 6 (controladora, Ramulator2): comparar os dois perfis como sistema.
 
 ## Pendências de fonte (bloqueadas pela busca web 402)
 - β do VCMA (faixa relatada ~20–300 fJ/(V·m)) — mapeamento V_b marcado como ILUSTRATIVO.
