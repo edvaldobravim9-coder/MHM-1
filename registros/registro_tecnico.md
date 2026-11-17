@@ -550,5 +550,53 @@
 - t_sw médio em J_90 fica bem abaixo do pulso (1,54 ns @ pulso 2 ns) → há
   folga de timing; o pulso pode ser encurtado em design de controladora.
 
+---
+
+## Entrada 005 — 17/11/2026 — Buscas de anterioridade EXECUTADAS (Google Patents via XHR)
+
+### Método
+- websearch genérica segue bloqueada (402, retestado hoje). **Descoberta de rota**:
+  o endpoint JSON do Google Patents (`https://patents.google.com/xhr/query?url=q%3D<consulta>&exp=`)
+  responde via webfetch — título, titular (assignee), data de prioridade e snippet nos
+  ~10 primeiros resultados, + sumários por assignee/ano.
+- Consultas executadas (5): H4-bruta; VCMA+memory (consulta 2 da Seção 3 do
+  `paisagem_ip.md`); janela R_A; ferrimagnética; H4-refinada.
+- Nota de método: reexecução da consulta VCMA no fim da sessão retornou 503
+  (rate-limit do endpoint) — os registros são das execuções bem-sucedidas do dia;
+  números conferidos nos snippets. Consultas futuras: usar com moderação.
+
+### Resultados por hipótese (detalhe; resumo em `docs/paisagem_ip.md` §0)
+- **H1 — BLOQUEADA (campo denso)**: **US9646670B2** (Qualcomm, prioridade 2015)
+  descreve SOT-MRAM 3T com campo elétrico reduzindo a anisotropia durante a escrita —
+  a H1 em essência. Portfólio da **Inston Inc.** é inteiramente VCMA-MRAM
+  ("VCMA AND memory": **1.176** resultados). Aparecem ainda US10600460B2 e JP5231528B2.
+- **H2 — BLOQUEADA (campo denso)**: **US8102701B2** (Crocus, prioridade 2007) — liga
+  ferrimagnética 3d-4f para célula magnética; **CN111312745B** (Samsung);
+  **JP7251811B2** (Tohoku). Consulta ferrimagnética: **6.314** resultados.
+- **H3 — BLOQUEADA**: **US10483457B1** (Qualcomm, prioridade 2018) — célula SOT-MRAM
+  diferencial com 2 MTJs de polaridade oposta (a estrutura PAR do A-4d).
+- **H4 — PARCIALMENTE VIVA**: busca refinada (`"parallel write" OR "simultaneous
+  write" OR "shared write line" OR "multi-cell write"`): **18 resultados**.
+  Adjacentes — nenhum cobre o pacote "escrita SOT paralela + seleção por porta VCMA":
+  - **US11004490B2** (imec) — linhas compartilhadas em arranjo SOT;
+  - **CN113160863A** (Antalis) — célula/arranjo SOT;
+  - **CN122314039A** (青岛海存微电子, 2026) — "Storage arrays and parallel write methods".
+- **Janela R_A (A-4e)**: **951** resultados sem cobrir o pacote; risco real é
+  "óbvio para experimentar" (obviedade) → valor de patente provavelmente fino.
+
+### Consequências para o projeto
+1. Nenhuma das H1–H3 sustenta pedido de patente. O valor do dossiê é
+   **científico/publicável** — a principal justificativa do congelo de publicação
+   enfraqueceu.
+2. H4 é a única com janela aparente (arquitetura de array, não física). Patente
+   estreita exigiria parecer de agente de PI (custo real) e o valor dependeria de
+   licenciamento — recomendação honesta: publicar; patente só se houver interessado
+   comercial na H4.
+3. **Decisão pendente do usuário**: manter congelo e tentar patente estreita (H4),
+   ou descongelar e voltar à publicação aberta (recomendação técnica).
+4. Fila técnica inalterada (independe da decisão): A-4c2 (solver 2 sub-redes, H2),
+   F6.1 (ngspice/PTM), A-4f (SOT-write/H4), H5 arquivar com justificativa.
+
+
 
 

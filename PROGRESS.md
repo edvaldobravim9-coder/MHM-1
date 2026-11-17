@@ -4,11 +4,15 @@
 **Fase 4 — Arquiteturas** (corrente aberta): testar as hipóteses H1–H5 por simulação
 e consolidar o veredito de design da célula MHM-1.
 
-## Status geral do projeto (~40%)
+## Status geral do projeto (~40–45%)
 - Fases 1–3 **ENCERRADAS**: ferramentas validadas (MuMax3 + solver FDT próprio,
   FDT 1,008, calibração térmica empírica), solver de macrospin validado, viabilidade
   térmica e de malha confirmadas.
-- GitHub: github.com/edvaldobravim9-coder/MHM-1 (público, MIT) — push a cada marco.
+- **Buscas de anterioridade EXECUTADAS** (17/11, Google Patents via XHR): H1–H3
+  bloqueadas por prior art denso; **H4 parcialmente viva** (18 resultados, adjacentes
+  apenas). Veredito em `docs/paisagem_ip.md` §0.
+- GitHub: github.com/edvaldobravim9-coder/MHM-1 (público, MIT) — **push suspenso
+  (congelo)**; commits locais a cada marco.
 
 ## O que já foi concluído (Fase 4, até agora)
 - **A-4a (VCMA × 1 ns): NEGATIVO** — gargalo do 1 ns é TORQUE, não barreira
@@ -42,13 +46,15 @@ e consolidar o veredito de design da célula MHM-1.
   em ngspice + PTM grátis) e A-4f (SOT-write, H4) na fila; H5 avaliar/arquivar.
 
 ## Próximos passos
-1. A-4c: refinar bracket do ponto-doce (30 nm / 1,0 nm / 4e5, J ∈ 6,5–8 MA/cm²)
-   + modelagem ferrimagnética 2 sub-redes (H2) — Spirit/Vampire (validados Fase 1).
-2. H4 (escrita paralela SOT + seleção VCMA) e H5 (3D): avaliar ou arquivar com justificativa.
-3. Fase 5 (matriz 16×16, C_BL real) e Fase 6 (controladora, ngspice, Verilog-A) em seguida.
-4. Registro de novidade: buscas de patente (docs/paisagem_ip.md Seção 3) — pendem
-   porque websearch está bloqueada (HTTP 402, retestado hoje). Consulta manual pelo
-   usuário em patents.google.com é a alternativa (instruções dadas).
+1. **DECISÃO DO USUÁRIO (bloqueia só o destino do repositório, não a corrente)**:
+   com H1–H3 bloqueadas e H4 parcialmente viva — manter congelo e tentar patente
+   estreita (H4, requer agente de PI), ou descongelar e voltar à publicação aberta
+   (recomendação técnica honesta).
+2. A-4c2: solver LLGS de 2 sub-redes (H2 ferrimagnético) — validação contra macrospin.
+3. F6.1: SA real em ngspice + modelos PTM grátis (ataque ao ponto fraco de leitura).
+4. A-4f: estimativa de célula SOT-write (H4 — a hipótese menos coberta).
+5. H5 (3D): arquivar com justificativa (recomendação registrada no paisagem_ip.md §4).
+6. Fase 5 (matriz 16×16, C_BL real) e Fase 6 (controladora) em seguida.
 
 ## Pendências de fonte (bloqueadas pela busca web 402)
 - β do VCMA (faixa relatada ~20–300 fJ/(V·m)) — mapeamento V_b marcado como ILUSTRATIVO.
@@ -62,8 +68,9 @@ e consolidar o veredito de design da célula MHM-1.
   `resultados_a4*/` e consoles .txt.
 - `exp_A0_macrospin/llgs_macrospin.py` (solver: RK45 adaptativo, anisotropia uniaxial
   real, `k_mult`/`k_mult_pulse` para VCMA), `parametros.py`.
-- `registros/registro_tecnico.md` — Entrada 004 (Fase 4 completa, com retratações).
-- `docs/paisagem_ip.md` — Seção 3 (consultas prontas), Seção 4 (H1–H5).
+- `registros/registro_tecnico.md` — Entradas 004 (Fase 4, com retratações) e
+  005 (buscas de anterioridade).
+- `docs/paisagem_ip.md` — veredito de anterioridade com patentes verificadas (§0).
 
 ## Restrições do projeto
 - Sem laboratório; só ferramentas gratuitas; rigor científico (nada fictício,
