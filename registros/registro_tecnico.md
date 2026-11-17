@@ -415,6 +415,22 @@
 - **Veredito VCMA (H1 reescrita)**: alavanca de energia moderada (−30% no 2 ns),
   não de velocidade. Pendência: fonte de β (busca 402).
 
+### A-4d aberto: margem de leitura (~03:40, `experimento_a4d.py`)
+- Problema (declarado desde o A-0): leitura por TMR com sinal pequeno —
+  TMR = 150% de projeto, degradação com viés (TMR(V) = TMR_0/cosh(V/V_c),
+  V_c sem fonte — pendência 402), série do seletor, C_BL, kT/C + offset de SA.
+- Ataques quantificados no grid: designs {40 baseline, 30 doce, 20 rápido} ×
+  TMR_0 {150, 300, 600}% × V_read {0,1–0,3} V × R_on {1, 3} kΩ ×
+  C_BL {50, 500} fF × esquema {SE, PAR}.
+- **PAR = H3-lite** (par diferencial, estados opostos): sinal ×2, offset comum
+  cancelado; custo: 2× energia de escrita por bit (aceitável: 0,13–0,15 pJ →
+  ~0,3 pJ/bit útil — ainda 2× melhor que o baseline single-ended).
+- Veredito por config: ΔV > 10 mV, t_read < 5 ns, I_read ≤ I_c0/5.
+- Observação já visível: nos designs vencedores I_c0 ~ 40–70 µA vs I_read
+  ~ 3–14 µA → disturb não deve ser o killer; o jogo é sinal × variância.
+- Pré-SPICE: a Fase 6 refina com ngspice/Xyce + Verilog-A do macrospin.
+
+
 ### A-4b concluído (~03:15): **1 ns É VIÁVEL — o design de 40 nm era o gargalo**
 - RETRAÇÃO (da minha própria conclusão do A-4a): "1 ns é torque-limited nesta
   classe" — FALSO como afirmação geral. Vale para o design de 40 nm
@@ -453,4 +469,23 @@
   o trade é medido, não assumido.)
 - Limitações declaradas no cabeçalho: macrospin; R_A fixo; K_eff até ~5e5 J/m³
   exige material forte (fonte pendente); α fixo 0,01.
+
+### A-4d concluído (~03:55): leitura single-ended MORTA — par diferencial (H3) é REQUISITO
+- Matriz de viabilidade (ΔV > 10 mV, t < 5 ns, I_read ≤ I_c0/5):
+  - **SE (referência clássica): 0/12 em praticamente tudo** — nem com TMR 600%
+    (só o baseline 40 nm passa 1/12 a 600%). O "sense amplifier difícil"
+    está CONFIRMADO quantitativamente.
+  - **PAR (par diferencial, estados opostos): salva TODOS os designs** —
+    40 nm e 20 nm vivem até com TMR 150%; 30 nm (R_P = 14,1 kΩ, I_c0 = 42,7 µA)
+    fica apertado entre sinal e disturb a 150% → **quer TMR ≥ 300%**
+    (CoFeB/MgO recozido: 600% demonstrado — Ikeda 2008, APL 92, 082508,
+    604% RT; confirmação formal pendente 402).
+- **H3 promovida de hipótese a REQUISITO de design**: leitura diferencial não
+  é opcional no MHM-1 — é o que torna o array legível. Custo: 2× escrita por
+  bit útil (0,13 → ~0,26 pJ/bit — ainda metade do baseline single-ended).
+- O design de 20 nm lê até a 150% (ΔR absoluto maior: R_P = 31,8 kΩ) — mas com
+  t_read = 2,7 ns se C_BL = 500 fF (no array grande o trade aperta; a Fase 5
+  mede o C_BL real).
+- Fase 6 (ngspice) refina o SA (carga-transferência) com o Verilog-A do
+  macrospin; o A-4d é a análise de rede que dimensiona o problema.
 
