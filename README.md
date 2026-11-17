@@ -103,3 +103,28 @@ com `tablesave()` — detalhes e justificativas em `exp_A1_mumax3/README.md`.
   compatível com MuMax 3.12**, que exige CC ≥ 5.0), SSD 256 GB, Windows.
 - Alternativas em nuvem gratuitas: Binder (Ubermag), nanoHUB (OOMMF no navegador),
   Google Colab (GPU T4 grátis, com limites de sessão).
+
+## Licença
+
+**PolyForm Noncommercial 1.0.0** (source-available, não comercial) — a partir de
+17/11/2026. Em resumo:
+
+- ✔ Pode **usar, estudar, editar e modificar** (pesquisa, estudo, projeto pessoal,
+  entretenimento privado).
+- ✔ Pode **redistribuir** cópias (inclusive modificadas) — sem fins comerciais e
+  mantendo estes termos + aviso de copyright.
+- ✘ **Não pode vender, sublicenciar ou usar comercialmente** (qualquer aplicação
+  comercial exige licença comercial separada do autor).
+- ✔ Concede licença de patente para uso não comercial.
+
+Texto completo: [LICENSE](LICENSE) · Texto oficial:
+https://polyformproject.org/licenses/noncommercial/1.0.0
+
+O autor mantém o direito de conceder **licenças comerciais** a interessados
+(fabricantes, estúdios, integradores) — é por essa porta que o MHM-1 pode, um dia,
+virar produto. Licenças de terceiros (ex.: MuMax 3.13, GPLv3) seguem valendo nos
+próprios termos; a pasta `tools/` inclui nota de fonte.
+
+**Histórico**: o snapshot `v0.1` (16/11/2026) foi publicado sob MIT — quem o obteve
+nessa forma mantém os direitos daquela versão; todo o conteúdo a partir daqui vale
+PolyForm NC 1.0.0.

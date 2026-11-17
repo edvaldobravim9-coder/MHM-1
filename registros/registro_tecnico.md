@@ -643,6 +643,18 @@
 - Energia reportada em R_A = 2,5 Ω·µm² (janela A-4e) e 10 Ω·µm² (A-4c).
 - Custo estimado: 40–60 min CPU.
 
+### Licença alterada: MIT → PolyForm Noncommercial 1.0.0 (17/11/2026)
+- Pedido do autor: pode usar/estudar/editar/redistribuir com limitações; NÃO pode
+  vender, sublicenciar nem distribuir sem limitações. PolyForm NC 1.0.0 cobre
+  exatamente isso (texto oficial copiado de polyformproject.org; titular
+  "edvaldobravim9-coder" — corrigir para o nome legal se desejar).
+- Porta de venda preservada: o licenciante pode conceder licença comercial
+  separada a interessados.
+- Honestidade de histórico: o snapshot `v0.1` foi publicado sob MIT e permanece
+  MIT para quem o obteve; todo o conteúdo a partir de agora vale PolyForm NC.
+- Nota: "source-available" não é open source OSI — o termo "ciência aberta"
+  do projeto passa a significar acesso público + uso não comercial.
+
 
 
 

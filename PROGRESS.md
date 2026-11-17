@@ -89,4 +89,8 @@ são o ataque.
 - Sem laboratório; só ferramentas gratuitas; rigor científico (nada fictício,
   retratações explícitas, fontes ou pendências declaradas).
 - Tudo versionado no GitHub (binários MuMax3 via Git LFS).
+- **Licença: PolyForm Noncommercial 1.0.0** (17/11/2026; antes MIT) — usar/estudar/
+  editar/redistribuir não-comercial OK; vender/sublicenciar/uso comercial NÃO
+  (licença comercial negociável pelo autor — porta de venda). Snapshot v0.1
+  permanece MIT para quem o obteve.
 - Exclusões de repos/arquivos só com aprovação explícita do usuário.
