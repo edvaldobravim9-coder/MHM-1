@@ -415,6 +415,34 @@
 - **Veredito VCMA (H1 reescrita)**: alavanca de energia moderada (−30% no 2 ns),
   não de velocidade. Pendência: fonte de β (busca 402).
 
+### A-4b concluído (~03:15): **1 ns É VIÁVEL — o design de 40 nm era o gargalo**
+- RETRAÇÃO (da minha própria conclusão do A-4a): "1 ns é torque-limited nesta
+  classe" — FALSO como afirmação geral. Vale para o design de 40 nm
+  (B_keff = 0,33–0,98 T, precessão lenta). Com Δ = 59,2 FIXO e célula menor,
+  K_eff sobe (2,3–7,8e5 J/m³) → B_keff = 1,7–3,9 T → f₀ ~ 40–100 GHz → a
+  dinâmica acelera e o STT puro fecha 1 ns.
+- **Q1 (mínimo de energia @2 ns, P ≥ 90%): 0,130 pJ** — d = 30 nm, t = 1,0 nm,
+  Ms = 4e5, J = 7,2 MA/cm² (1,2×J_c0). ~5× melhor que o baseline (0,63 pJ) e
+  melhor que o caminho VCMA (0,44 pJ).
+- **Q2 (1 ns, P ≥ 90%): 7 designs** — destaque: **d = 30 nm, t = 1,0 nm,
+  Ms = 4e5 → 1 ns a 0,15 pJ**; d = 20 nm/t = 1,0 nm → 0,28 pJ (J = 22,7 MA/cm²).
+- **Tendência de material**: o ótimo corre para Ms BAIXO (4e5) — consistente
+  com a H2 (ferrimagnético/low-Ms), agora por TRÊS vias: torque/corrente ↑,
+  J_c0 ↓ e energia ↓.
+- **Ressalva em verificação (lançada)**: δ_w ≈ 4,4–5,9 nm << d nos designs
+  vencedores → reversão pode ser por NUCLEAÇÃO (não quase-coerente) → a razão
+  malha/macrospin 1,07 (medida em K_eff = 1,3e5) pode mudar.
+  `verifica_a4b_mumax3.py` compara malha vs macrospin nos designs de 30 e
+  20 nm (12 runs, 0 K). Se a malha comutar a J ≤ macrospin → A-4b conservador.
+- Ressalvas declaradas (cabeçalho do A-4b): R_A fixo (túnel de condutância em
+  t = 1 nm ignorado); K_eff até 7,8e5 J/m³ exige material anisotrópico forte
+  (fonte pendente — buscas 402); J = 22,7 MA/cm² no design de 20 nm pede
+  verificação de breakdown/eletromigração (Fase 7).
+- Leitura de conjuntura: o ganho de energia vinda de d menor + anisotropia alta
+  NÃO estava no grid original do projeto (40 nm herdado do A-0) — a Fase 4 já
+  pagou o próprio custo.
+
+
 ### A-4b lançado (~02:40): espaço de designs com Δ = 59,2 FIXO
 - K_eff recalculado por design (K_eff = Δ·kT/V) → retenção garantida por
   construção em todo o grid.
