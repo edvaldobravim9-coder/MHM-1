@@ -22,7 +22,7 @@ e usando exclusivamente simulação computacional gratuita.
 | 1 | Pesquisa científica e seleção de ferramentas | **CONCLUÍDA** (16/11: Vampire 7, Xyce 7.10, Spirit→spirit-code, Fidimag→computationalmodelling revalidados; SunTzu indisponível publicamente → Verilog-A próprio na Fase 6; ferramentas validadas na prática na Fases 2–3) |
 | 2 | Modelagem matemática e física | **CONCLUÍDA** (solver macrospin validado: FDT 0,994 e 1,008 a dt=0,25 ps; anisotropia uniaxial corrigida; calibração térmica empírica taxa(Δ) com incerteza declarada — desvio vs Brown é física de Δ baixo, confirmado por convergência dt) |
 | 3 | Simulação de células magnéticas | **CONCLUÍDA** (A-1a: B_sw = 0,75 T @ 10 ns; A-1b + refino: J_sw malha ≈ 1,07× macrospin — reversão quase-coerente; A-0 v2: 2 ns ✓ 90% @ 12 MA/cm² 0,63 pJ, 1 ns ✗; térmico MuMax3 viável: 11 min/run, FDT por célula aprovado; retenção Δ = 59 robusta ~25 anos) |
-| 4 | Comparação de materiais e arquiteturas | Pendente (pré-requisito: consultas de patentes do `docs/paisagem_ip.md` — websearch bloqueado; alternativa: consulta manual) |
+| 4 | Comparação de materiais e arquiteturas | **EM ANDAMENTO** (A-4a VCMA×1 ns: negativo — torque-limited; A-4a2: VCMA −30% energia no 2 ns; A-4b: **1 ns viável por STT puro** em designs 20–30 nm com Δ fixo, verificado em MuMax3; A-4c: J_90 cravado — Pareto energia×velocidade quase plano, 0,32–0,40 pJ/bit útil no par diferencial; A-4d: leitura single-ended morta → **par diferencial H3 = requisito de design**; A-4e: janela R_A 1,25–2,5 Ω·µm² → 18–35 fJ/célula; **anterioridade executada**: H1–H3 bloqueadas, H4 parcialmente viva — `docs/paisagem_ip.md` §0) |
 | 5 | Matriz magnética 16×16 | Pendente |
 | 6 | Controladora e arquitetura de memória | Pendente (Ramulator 2 / ngspice / Xyce) |
 | 7 | Validação dos resultados | Pendente |
@@ -37,13 +37,23 @@ MHM-1/
 ├── README.md                  <- este arquivo
 ├── docs/
 │   ├── fase1_ferramentas.md   <- levantamento de ferramentas (verificado em 16/11/2026)
-│   └── paisagem_ip.md         <- patentes, artigos e hipóteses de inovação
+│   └── paisagem_ip.md         <- veredito de anterioridade (buscas executadas 17/11/2026)
 ├── exp_A0_macrospin/          <- Experimento A-0: célula MTJ (macrospin LLGS, Python)
 │   ├── parametros.py          <- parâmetros de material com fontes
-│   ├── llgs_macrospin.py      <- solver LLGS (RK4, torque STT, campo térmico)
+│   ├── llgs_macrospin.py      <- solver LLGS (RK45 adaptativo, anisotropia uniaxial,
+│   │                             torque STT, campo térmico, k_mult p/ VCMA)
 │   ├── experimento_a0.py      <- roteiro do experimento (gera CSVs e figuras)
 │   ├── resultados/            <- saídas (CSV/PNG) — gerados pela execução
 │   └── README.md              <- objetivo, passo a passo, interpretação
+├── exp_A4_arquiteturas/       <- (FASE 4) arquiteturas: VCMA, espaço de designs,
+│   │                             leitura diferencial, janela de R_A
+│   ├── experimento_a4a.py     <- VCMA × 1 ns (negativo: torque-limited)
+│   ├── experimento_a4a2.py    <- VCMA × 2 ns (−30% energia)
+│   ├── experimento_a4b.py     <- espaço de designs com Δ fixo (1 ns viável)
+│   ├── verifica_a4b_mumax3.py <- verificação malha × macrospin do A-4b
+│   ├── experimento_a4c.py     <- J_90 (60 traj/ponto) — Pareto energia × velocidade
+│   ├── experimento_a4d.py     <- margem de leitura SE × diferencial
+│   └── experimento_a4e.py     <- janela de R_A (breakdown × leitura × energia)
 ├── exp_A1_mumax3/             <- (FASE 3) micromagnetismo na GPU (MuMax 3.12)
 │   ├── README.md              <- calibração da malha + lições de execução
 │   ├── smoke_test_v2.mx3      <- teste de fumaça (PASS em 16/11/2026)

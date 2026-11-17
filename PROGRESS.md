@@ -31,11 +31,10 @@ e consolidar o veredito de design da célula MHM-1.
   2× escrita/bit útil (~0,26 pJ — ainda metade do baseline original).
 
 ## Em andamento
-- **CONGELO DE PUBLICAÇÃO ATIVO** (decisão do usuário, 17/11/2026): nada mais é
-  enviado ao GitHub até a avaliação de patente. Commits locais OK; push suspenso.
-  Motivo: interesse em venda — patente BR/US (período de graça do inventor,
-  ~12 meses a partir do 1º push de 16/11/2026) preserva o direito de venda;
-  conteúdo novo fica local até a decisão.
+- **CONGELO DE PUBLICAÇÃO ENCERRADO** (decisão do usuário, 17/11/2026): com as buscas
+  de anterioridade executadas (H1–H3 bloqueadas por prior art denso; só H4 parcialmente
+  viva, de valor fino), decidiu-se voltar à ciência aberta. Todos os commits pendentes
+  enviados ao GitHub (`2779198..0e7f062`).
 - **A-4c concluído (LOCAL)**: J_90 cravado — doce30 @ 2 ns: 8,0 MA/cm²;
   rapido20 @ 1 ns: 17,0. Pareto energia × velocidade quase PLANO por bit útil.
 - **A-4e concluído (LOCAL)**: janela de R_A fecha breakdown + leitura com
@@ -46,15 +45,11 @@ e consolidar o veredito de design da célula MHM-1.
   em ngspice + PTM grátis) e A-4f (SOT-write, H4) na fila; H5 avaliar/arquivar.
 
 ## Próximos passos
-1. **DECISÃO DO USUÁRIO (bloqueia só o destino do repositório, não a corrente)**:
-   com H1–H3 bloqueadas e H4 parcialmente viva — manter congelo e tentar patente
-   estreita (H4, requer agente de PI), ou descongelar e voltar à publicação aberta
-   (recomendação técnica honesta).
-2. A-4c2: solver LLGS de 2 sub-redes (H2 ferrimagnético) — validação contra macrospin.
-3. F6.1: SA real em ngspice + modelos PTM grátis (ataque ao ponto fraco de leitura).
-4. A-4f: estimativa de célula SOT-write (H4 — a hipótese menos coberta).
-5. H5 (3D): arquivar com justificativa (recomendação registrada no paisagem_ip.md §4).
-6. Fase 5 (matriz 16×16, C_BL real) e Fase 6 (controladora) em seguida.
+1. A-4c2: solver LLGS de 2 sub-redes (H2 ferrimagnético) — validação contra macrospin.
+2. F6.1: SA real em ngspice + modelos PTM grátis (ataque ao ponto fraco de leitura).
+3. A-4f: estimativa de célula SOT-write (H4 — a hipótese menos coberta).
+4. H5 (3D): arquivar com justificativa (recomendação registrada no paisagem_ip.md §4).
+5. Fase 5 (matriz 16×16, C_BL real) e Fase 6 (controladora) em seguida.
 
 ## Pendências de fonte (bloqueadas pela busca web 402)
 - β do VCMA (faixa relatada ~20–300 fJ/(V·m)) — mapeamento V_b marcado como ILUSTRATIVO.

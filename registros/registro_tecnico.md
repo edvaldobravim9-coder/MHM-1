@@ -592,9 +592,11 @@
    estreita exigiria parecer de agente de PI (custo real) e o valor dependeria de
    licenciamento — recomendação honesta: publicar; patente só se houver interessado
    comercial na H4.
-3. **Decisão pendente do usuário**: manter congelo e tentar patente estreita (H4),
-   ou descongelar e voltar à publicação aberta (recomendação técnica).
-4. Fila técnica inalterada (independe da decisão): A-4c2 (solver 2 sub-redes, H2),
+3. **DECISÃO DO USUÁRIO (17/11/2026): DESCONGELAR E PUBLICAR** — volta à ciência
+   aberta; push de `2779198..0e7f062` executado no mesmo dia. A janela H4 fica
+   documentada no `paisagem_ip.md` §0 para eventual exploração comercial futura
+   (nota: divulgação pública começa o relógio de graça do inventor sobre ela).
+4. Fila técnica inalterada: A-4c2 (solver 2 sub-redes, H2),
    F6.1 (ngspice/PTM), A-4f (SOT-write/H4), H5 arquivar com justificativa.
 
 
