@@ -1,7 +1,6 @@
 # MHM-1 — regras de versionamento
 
-# Binários do MuMax3 (639 MB) — não versionar; baixar de mumax.github.io/download
-tools/
+# (binários do MuMax3 em tools/ SÃO versionados via Git LFS — pedido do autor)
 
 # Cache Python
 __pycache__/
