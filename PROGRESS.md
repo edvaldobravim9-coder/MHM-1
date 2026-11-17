@@ -27,9 +27,19 @@ e consolidar o veredito de design da célula MHM-1.
   2× escrita/bit útil (~0,26 pJ — ainda metade do baseline original).
 
 ## Em andamento
-- **A-4c rodando** (background, ~10–15 min): refino do bracket dos designs
-  vencedores — curva P(J) fina (60 traj/ponto), J_90 e custo por bit ÚTIL
-  (par diferencial H3 = 2×E) para doce30 e rapido20, nos alvos 2 ns e 1 ns.
+- **CONGELO DE PUBLICAÇÃO ATIVO** (decisão do usuário, 17/11/2026): nada mais é
+  enviado ao GitHub até a avaliação de patente. Commits locais OK; push suspenso.
+  Motivo: interesse em venda — patente BR/US (período de graça do inventor,
+  ~12 meses a partir do 1º push de 16/11/2026) preserva o direito de venda;
+  conteúdo novo fica local até a decisão.
+- **A-4c concluído (LOCAL)**: J_90 cravado — doce30 @ 2 ns: 8,0 MA/cm²;
+  rapido20 @ 1 ns: 17,0. Pareto energia × velocidade quase PLANO por bit útil.
+- **A-4e concluído (LOCAL)**: janela de R_A fecha breakdown + leitura com
+  energia em fJ (18–35 fJ/célula): doce30 @ R_A 2,5 → 0,035 pJ (2 ns);
+  rapido20 @ R_A 1,25 → 1 ns @ 0,018 pJ. O ponto fraco endurance era a escolha
+  conservadora de R_A = 10 do A-0.
+- **Programa de ataque aos pontos fracos** (pedido do usuário): F6.1 (SA real
+  em ngspice + PTM grátis) e A-4f (SOT-write, H4) na fila; H5 avaliar/arquivar.
 
 ## Próximos passos
 1. A-4c: refinar bracket do ponto-doce (30 nm / 1,0 nm / 4e5, J ∈ 6,5–8 MA/cm²)

@@ -503,9 +503,52 @@
   o 1 ns é confirmado EM MALHA, não só no macrospin. Para o design de 30 nm,
   o 1 ns depende de assistência térmica (300 K: 92,5% no macrospin; a 0 K
   malha e macrospin não fecham em 1 ns — coerente).
-- Fase 4 — veredito parcial consolidado: célula 20–30 nm, Δ = 59,2 fixo,
-  K_eff = 2,3–7,8e5 J/m³ → **1 ns e <1 pJ simultaneamente por STT puro**
-  (0,13 pJ @ 2 ns; 0,15 pJ @ 1 ns, verificado em malha a 0 K);
-  leitura exige PAR diferencial (H3 requisito); VCMA = −30% energia (β fonte
-  pendente).
+### Programa "atacar os pontos fracos vs mercado" (pedido do usuário, 17/11) + A-4e concluído
+- Inventário dos pontos fracos vs mercado e plano: (1) leitura/SA difícil →
+  F6.1 antecipada (ngspice + modelos PTM grátis, SA real); (2) breakdown/
+  endurance de escrita → **A-4e (feito abaixo)**; (3) densidade → H5 avaliar/
+  arquivar com justificativa; (4) velocidade de sistema → Fases 5–6;
+  (5) fontes de material → buscas manuais do usuário; (6) P de escrita 90% →
+  write-verify na controladora (Fase 6).
+
+### A-4e (~05:20): o ponto fraco "endurance" era REAL — e o conserto é um prêmio duplo
+- **Achado**: com R_A = 10 Ω·µm² (herdado do A-0), TODOS os designs excedem o
+  breakdown pessimista na escrita: V_write = 0,93–1,92 V vs V_bd = 0,5–1,2 V
+  (MgO 1 nm; E_bd ∈ {5, 8, 12} MV/cm — SEM FONTE, pendência).
+- **Conserto (janela de R_A)**: R_A ∈ {1,25–2,5} Ω·µm² fecha escrita + leitura
+  em todos os casos razoáveis — e como E ∝ R (I é fixo pelo torque), a energia
+  CAI 4–8× junto:
+  - doce30 @ R_A = 2,5: **0,035 pJ/célula (2 ns)** → 0,07 pJ/bit útil (par H3),
+    leitura PAR 20,7 mV ok
+  - rapido20 @ R_A = 1,25: **1 ns @ 0,018 pJ/célula** → 0,036 pJ/bit útil,
+    leitura ok (20 mV)
+  - baseline40 @ R_A = 2,5: 0,133 pJ (2 ns)
+- **Números agora em fJ (18–35 fJ/célula)**: ~2–7× a energia de escrita de
+  célula DRAM — com não-volatilidade. Atualiza as manchetes do dossiê (A-4c/d
+  foram calculados em R_A = 10; a janela viável os refaz em fJ).
+- Janela existe em TODOS os combos (design × TMR0 × E_bd) testados, mas afina
+  no caso pessimista (E_bd = 5 MV/cm → R_A ≤ 2,5). R_A ≤ 2,5 Ω·µm² exige
+  controle de fabricação — pendência de fonte +2: E_bd real do MgO e R_A
+  típico de produtos comerciais (suspeita: 2–10 Ω·µm², a confirmar).
+- Honestidade: endurance em ciclos NÃO é simulável aqui (fadiga = milhões de
+  ciclos); o que se auditou é o estresse de tensão por escrita vs breakdown.
+
+### A-4c concluído (~04:35): J_90 cravado — dobrar a velocidade custa ~0 energia por bit útil
+- Com 60 traj/ponto (σ ~3–4% em P = 90%):
+  - doce30 @ 2 ns: **J_90 = 8,0 MA/cm² → 0,158 pJ/célula** (par H3: 0,317 pJ/bit útil)
+  - doce30 @ 1 ns: J_90 = 11,6 → 0,166 pJ (0,333 pJ/bit útil)
+  - rapido20 @ 2 ns: J_90 = 13,5 → 0,200 pJ (0,401 pJ/bit útil)
+  - rapido20 @ 1 ns: J_90 = 17,0 → 0,159 pJ (0,318 pJ/bit útil)
+- **CORREÇÃO HONESTA do A-4b Q1**: o "mínimo 0,130 pJ @ 7,2 MA/cm²" ficava a
+  88,3% ± 4,1 com n = 40 — ruído da amostra. Com n = 60, o J_90 honesto é
+  8,0 MA/cm² → **0,158 pJ** (não 0,130). O CSV do A-4c é o número do dossiê.
+- **Pareto energia × velocidade quase PLANO por bit útil**: doce30 @ 2 ns
+  (0,317) ≈ rapido20 @ 1 ns (0,318). Dobrar a velocidade não custa energia —
+  custa CORRENTE (8 → 17 MA/cm²; breakdown/eletromigração a verificar na Fase 7).
+- Faixa final do dossiê: **0,32–0,40 pJ/bit útil** (par diferencial H3) —
+  metade do baseline single-ended original (0,63 pJ/bit).
+- t_sw médio em J_90 fica bem abaixo do pulso (1,54 ns @ pulso 2 ns) → há
+  folga de timing; o pulso pode ser encurtado em design de controladora.
+
+
 
