@@ -41,6 +41,7 @@ class SimuladorMacrospin:
         self.rng = np.random.default_rng(seed)
         self.B_keff = p.B_keff          # T
         self.V = p.volume               # m³
+        self.k_mult = 1.0               # multiplicador de anisotropia (VCMA; 1.0 = off)
 
     # ------------------------------------------------------------------ física
     def J_c0(self):
@@ -62,8 +63,10 @@ class SimuladorMacrospin:
         # B_keff·ẑ CONSTANTE — não havia barreira de Néel (fuga ~ e^(−2Δ), A-2 dava
         # 0/80 flips). A curvatura perto de ±z é a mesma; resultados determinísticos
         # de limiar 0 K mudam pouco, mas TODOS os resultados térmicos dependem disto.
+        # VCMA (A-4a): k_mult < 1 modela redução de K_eff por tensão na barreira
+        # (efeito de superfície — vale DURANTE o pulso; run_pulse restaura 1.0 no tail).
         B = np.zeros_like(m)
-        B[:, 2] = self.B_keff * m[:, 2]
+        B[:, 2] = self.B_keff * self.k_mult * m[:, 2]
         B = B + B_th
 
         mxB = np.cross(m, B)
@@ -85,9 +88,11 @@ class SimuladorMacrospin:
         return m + (dt / 6.0) * (k1 + 2.0 * k2 + 2.0 * k3 + k4)
 
     def run_pulse(self, J, t_pulse, dt, T=0.0, n_runs=1, t_tail=2e-9,
-                  m0_tilt=1e-2, store_hist=False, hist_every=10):
+                  m0_tilt=1e-2, store_hist=False, hist_every=10, k_mult_pulse=1.0):
         """Aplica pulso de corrente J por t_pulse e observa por mais t_tail (J=0).
 
+        k_mult_pulse: multiplicador de anisotropia DURANTE o pulso (VCMA — A-4a);
+        no tail a anisotropia volta ao valor integral (k_mult = 1.0).
         J: escalar (mesma corrente para todas as runs) ou array (n_runs,).
         Cada 'run' do lote recebe uma realização de ruído independente.
         Retorna dict com:
@@ -121,6 +126,7 @@ class SimuladorMacrospin:
 
         for i in range(n1 + n2):
             J_now = J_arr if i < n1 else np.zeros_like(J_arr)
+            self.k_mult = k_mult_pulse if i < n1 else 1.0
             if T > 0:
                 B_th = sigma * self.rng.standard_normal(m.shape)
             else:

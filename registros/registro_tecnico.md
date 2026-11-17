@@ -362,3 +362,67 @@
 - Testar viabilidade de runs térmicos no MuMax3 (Temp>0, RK45, malha 2,5 nm) antes
   de campanhas estatísticas.
 
+
+---
+
+## Entrada 004 — 17/11/2026 — FASE 4: arquiteturas
+
+### A-4a aberto: VCMA + STT (~02:10, `exp_A4_arquiteturas/`)
+- Alvo direto: a meta **1 ns** (0% até 12 MA/cm² no A-0 v2 com STT puro).
+- Ideia: reduzir a barreira **apenas durante o pulso** (K_eff' = f_K·K_eff),
+  mantendo Δ = 59,2 estático — retenção preservada por construção (comutação é
+  absorvente: no tail a barreira integral prende em −z).
+- Implementação no solver: `k_mult` (atributo) + `k_mult_pulse` em `run_pulse`
+  — retrocompatível (f_K = 1,0 replica o A-0 v2 exato).
+- Grid: f_K ∈ {1.0, 0.9, 0.75, 0.5, 0.25} × J ∈ {8, 10, 12, 15} MA/cm²;
+  0 K determinístico + 300 K (40 traj/ponto), pulso 1 ns.
+- ⚠ **β (VCMA) SEM FONTE ainda**: busca web bloqueada (402). Mapeamento
+  V_b = (1−f_K)·K_eff·t_FL·t_MgO/β declarado como **ILUSTRATIVO** (β = 100
+  fJ/(V·m) projeto; 50 pessimista; faixa relatada 20–300). A varredura em f_K é
+  autocontida (física pura); a tradução em volts exige a fonte. Pendência
+  registrada: consultar literatura quando a busca voltar (ou manual).
+- E_VCMA ≈ ½·C·V² com C ≈ 100 aF (MgO 1 nm, εr = 9) → 5–100 aJ: desprezível
+  vs STT (0,3–1 pJ) — o ganho do VCMA é REDUZIR J, não custo próprio.
+
+### A-4a concluído (~02:20): NEGATIVO para 1 ns — e a lição de design
+- Resultado: 0 K — NADA comuta em 1 ns (nem J = 15, nem f_K = 0,25);
+  300 K — P ≈ 0% no grid todo, exceto 12,5–15% @ J = 15, **independente de f_K**.
+- **Diagnóstico (por que é física real, não bug)**: o gargalo do 1 ns é TORQUE,
+  não barreira. B_stt(J = 15 MA/cm²) ≈ 0,022 T — 5× menor que B_keff' = 0,108 T
+  mesmo com f_K = 0,25. A comutação determinística em <1 ns exigiria B_stt ~ B_keff
+  (J >> 15 — energia explode). E a via térmica: Δ' = 14,8 (f_K = 0,25) →
+  P(fuga em 1 ns) ≈ e^(−14,8)·f0·1 ns ≈ 10⁻⁷ — desprezível.
+- **Consequências para a Fase 4**:
+  1. H1 REESCRITA: VCMA não é alavanca de VELOCIDADE; é alavanca de ENERGIA
+     (reduz J do alvo 2 ns) — teste no A-4a2 (lançado).
+  2. O caminho físico para 1 ns com baixa corrente é TORQUE/CORRENTE:
+     SOT (via dedicada, J_density alta sem passar pela MTJ) e/ou
+     **ferrimagnético (H2)**: B_stt ∝ 1/M_s — no ponto de compensação o torque
+     por corrente dispara. Nota: J_c0 vs M_s com Δ fixo tem mínimo em
+     M_s* = √(4K_eff/μ0) ≈ 6,4e5 A/m — o CoFeB (6,0e5) JÁ está perto do ótimo
+     para STT ferromagnético convencional; o ganho ferrimagnético vem da
+     compensação de momento angular (dinâmica diferente, modelo 2 sub-redes
+     — Spirit/Vampire validados na Fase 1 são os instrumentos certos).
+  3. A-4b (varredura de espaço de designs com Δ = 59 fixo) quantifica o
+     "impossível 1 ns por STT puro" — pendente.
+
+### A-4a2 concluído (~02:35): VCMA corta ~30% de energia no 2 ns
+- Mínimo: **0,44 pJ @ f_K = 0,75, J = 10 MA/cm² (P = 90%)** vs 0,63 pJ do
+  A-0 v2 (f_K = 1, J = 12). E_VCMA ≈ 12 aJ — desprezível (ganho vem do J²).
+- f_K = 0,25 não melhora sobre 0,75 → **saturação**: perto do limiar de torque,
+  a barreira deixa de ser o fator limitante. V_b ≈ 0,5 V (β = 100, ilustrativo).
+- Baseline replicado dentro do erro (97,5% vs 90% ± 4,7% binomial, 1,6σ) ✓.
+- **Veredito VCMA (H1 reescrita)**: alavanca de energia moderada (−30% no 2 ns),
+  não de velocidade. Pendência: fonte de β (busca 402).
+
+### A-4b lançado (~02:40): espaço de designs com Δ = 59,2 FIXO
+- K_eff recalculado por design (K_eff = Δ·kT/V) → retenção garantida por
+  construção em todo o grid.
+- Grid: d ∈ {20, 30, 40} nm × t_FL ∈ {1,0; 1,5} nm × Ms ∈ {4, 6, 8}e5 × α = 0,01;
+  J = {1,2; 1,8}×J_c0(Sun); pulso 2 ns + 1 ns; 300 K, 40 traj; 0 K a 1,8×J_c0.
+- Q1: mínimo de energia no 2 ns (P ≥ 90%). Q2: algum design atinge 1 ns?
+  (d menor → K_eff ↑ → B_keff ↑ → precessão acelera; mas J_c0 ↑ e R = R_A/A ↑ —
+  o trade é medido, não assumido.)
+- Limitações declaradas no cabeçalho: macrospin; R_A fixo; K_eff até ~5e5 J/m³
+  exige material forte (fonte pendente); α fixo 0,01.
+
