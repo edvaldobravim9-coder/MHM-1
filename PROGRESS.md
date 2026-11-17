@@ -35,6 +35,13 @@ e consolidar o veredito de design da célula MHM-1.
   de anterioridade executadas (H1–H3 bloqueadas por prior art denso; só H4 parcialmente
   viva, de valor fino), decidiu-se voltar à ciência aberta. Todos os commits pendentes
   enviados ao GitHub (`2779198..0e7f062`).
+- **A-4c2 em execução** (solver LLGS de 2 sub-redes — H2 ferrimagnético): smoke PASSOU
+  (V1 regressão EXATA vs A-0: 4,44 ns; V2 par AF estável, Δ = 59,2). Ponto de fumaça
+  revelou física importante: com STT só na sub-rede TM, o limiar NÃO colapsa com r
+  (Ms_net cancela: J_c ≈ 5,3 MA/cm² a 0 K, ~12% melhor que o ferro) — o colapso de
+  corrente perto da compensação só aparece com torque no momento total (modo "ambos",
+  caso SOT). Campanha completa (V0/V3/V4, ~60 traj/J, batch de J) rodando em background,
+  ~40–60 min.
 - **A-4c concluído (LOCAL)**: J_90 cravado — doce30 @ 2 ns: 8,0 MA/cm²;
   rapido20 @ 1 ns: 17,0. Pareto energia × velocidade quase PLANO por bit útil.
 - **A-4e concluído (LOCAL)**: janela de R_A fecha breakdown + leitura com

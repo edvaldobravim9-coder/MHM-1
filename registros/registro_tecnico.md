@@ -599,6 +599,51 @@
 4. Fila técnica inalterada: A-4c2 (solver 2 sub-redes, H2),
    F6.1 (ngspice/PTM), A-4f (SOT-write/H4), H5 arquivar com justificativa.
 
+---
+
+## Entrada 006 — 17/11/2026 — A-4c2 aberto: solver LLGS de 2 sub-redes (H2)
+
+### Solver novo (`exp_A4_arquiteturas/llgs_ferrimagnetico.py`)
+- Macrospin de 2 sub-redes troca-acopladas (m1 = TM/Fe na interface, m2 = RE/Gd),
+  troca AF e_ex = −A12·m1·m2 com A12 = B_ex0·Ms1; anisotropia dividida
+  (K1+K2 = K_total → Δ preservado por construção); RK4 passo fixo dt = 1e-14 s
+  (modo óptico do par AF ~2e14 rad/s; estabilidade RK4 exige γ·B·dt < 2,8).
+- Escolhas de modelagem TODAS declaradas no docstring (γ iguais — válido para
+  GdFeCo, g_Fe ≈ g_Gd ≈ 2; ruído térmico independente por sub-rede; B_ex0
+  ILUSTRATIVO pendente de fonte; modo STT configurável "tm"/"ambos").
+- Retrocompatibilidade: `ativo2=False + frac_K1=1.0 + dt=1e-12` replica o solver
+  A-0.
+
+### Smoke test (`smoke_a4c2.py`) — 3 portões, 2 PASS + 1 descoberta
+- **V1 REGRESSÃO: PASS EXATO** — 0 K, J = 8 MA/cm², 5 ns → t_sw = 4,44 ns
+  (idêntico ao A-0 v2).
+- **V2 SANIDADE: PASS** — par AF rígido estável por 2 ns (m1z = +1,000000,
+  m2z = −1,000000), Δ = 59,2 confirmado.
+- **V3 ponto (r = 0,95, J = 2 MA/cm², 300 K): P = 0%** — CONTRADIZ a expectativa
+  ingênua de colapso de corrente. Custo real medido: ~0,6 ms/passo (overhead numpy
+  em arrays pequenos) → reestruturar campanha com batch de J.
+
+### Análise (derivada no momento, a conferir com a campanha)
+- No limite rígido, o limiar damping-like com STT só na sub-rede TM satisfaz
+  B_STT1 = α·2K_total/Ms1 — **Ms_net CANCELA** entre o drive amplificado
+  (Ms1/Ms_net) e a barreira por inércia (2K_total/Ms_net) → J_c(0 K) ≈
+  5,3 MA/cm², ~independente de r (~12% melhor que o ferro 6,03 — só o termo
+  μ0·M/2). O colapso de corrente perto da compensação exigiria torque sobre o
+  momento TOTAL (modo "ambos" — o caso SOT/transversal da literatura), onde
+  B_stt_eff ∝ 1/Ms_net amplifica o drive em ~20× em r = 0,95.
+- **Implicação de design (provisória)**: para STT-MTJ com interface Fe, a H2 não
+  dá salto de corrente; para SOT (A-4f), a H2 volta a viver. A campanha V3/V4
+  discrimina os dois regimes com estatística (60 traj/J).
+
+### Campanha lançada (`experimento_a4c2.py`, background)
+- V0: limiares 0 K pontuais (tm e ambos, r = 0,95) — testa a previsão 5,3.
+- V3 "tm": r ∈ {0,50; 0,85; 0,95} × B_ex0 = 500 T × pulsos {2, 1} ns
+  (r = 0,50 só 2 ns — controle), 60 traj/J, todos os J de cada pulso em UM batch.
+- V4 "ambos": r ∈ {0,85; 0,95} × pulsos {2, 1} ns, J afinado 2–8 MA/cm².
+- Energia reportada em R_A = 2,5 Ω·µm² (janela A-4e) e 10 Ω·µm² (A-4c).
+- Custo estimado: 40–60 min CPU.
+
+
 
 
 
