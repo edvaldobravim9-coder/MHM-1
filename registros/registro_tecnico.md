@@ -277,6 +277,37 @@
   macrospin direta.
 
 
+### dt-convergência — desvio do A-2 é FÍSICA (~01:50, `diag_dt_convergencia.py`)
+- Δ = 5,69, 80 trajetórias, janela 4,52 µs:
+  - dt = 1,0 ps (A-2 v3): MFP 330,1 ns → 3,03e6/s
+  - **dt = 0,5 ps: MFP 381,6 ns → 2,62e6/s** (queda de só −14%)
+- Se fosse artefato de ruído congelado, a taxa convergiria para a teoria de
+  Brown ao refinar dt — mas permanece **~4,7–5,5× acima** (teoria: 5,55e5/s).
+  → **Desvio vs Brown é FÍSICA de Δ baixo** (degradação da forma assintótica),
+  com resíduo sistemático menor de dt declarado como incerteza (~−14% por
+  half-dt; extrapolação dt→0: ~2,4e6/s, ainda 4,3× acima de Brown).
+- Equipartição a dt = 0,25 ps: **0,3197 vs 0,3171 → razão 1,008** — banho
+  térmico do solver praticamente exato mesmo com passo 4× menor.
+- **DECISÃO: A-2 v3 fica como calibração empírica definitiva** (inclinação
+  ≈ −0,85, f₀ ≈ 3,2e8 Hz), sem reexecução a dt menor. Não havia artefato a
+  corrigir — o A-2 fino seria custo de ~6 h sem mudança de conclusão.
+
+### FASE 3 ENCERRADA (~01:55) — veredito consolidado
+- Campo (A-1a): B_sw = 0,75 T @ 10 ns — validação quantitativa (prev. 0,70–0,71).
+- Corrente (A-1b + refino): J_sw malha ≈ 1,07× macrospin; reversão
+  quase-coerente (δ_w ≈ 10,6 nm); **macrospin validado para varreduras (Fase 4+,
+  ~100× mais barato)**.
+- Macrospin corrigido (A-0 v2): limiar 0 K 5 ns = 8 MA/cm²; 300 K: 2 ns ✓ (90%
+  @ 12, 0,63 pJ); 1 ns ✗ (motiva SOT/VCMA); <1 pJ ✓; Δ = 59,2 ✓.
+- Térmico macrospin (A-2 v3): calibração empírica taxa(Δ) com incerteza; desvio
+  vs Brown explicado (física de Δ baixo + resíduo dt).
+- Térmico micromagnético (viabilidade + discriminador): wall ≈ 11 min/run;
+  FDT por célula correto (0,0200 vs 0,0169, razão 1,18; malha 0,107 = contagem
+  de modos).
+- **Metas da célula: 2 ns ✓ · <1 pJ ✓ · Δ ≥ 42 ✓ · 1 ns ✗ (→ SOT/VCMA, Fase 4).**
+- Progresso do projeto: **~36%** (Fases 1–3 fechadas = 37,5 de 100).
+
+
 ### GitHub — publicado (00:57–01:05)
 - Repo: **github.com/edvaldobravim9-coder/MHM-1** (público, licença MIT).
 - Push completo: código, resultados, diários, docs (336 arquivos) + ferramentas

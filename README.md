@@ -20,8 +20,8 @@ e usando exclusivamente simulação computacional gratuita.
 | Fase | Descrição | Status |
 |------|-----------|--------|
 | 1 | Pesquisa científica e seleção de ferramentas | **CONCLUÍDA** (16/11: Vampire 7, Xyce 7.10, Spirit→spirit-code, Fidimag→computationalmodelling revalidados; SunTzu indisponível publicamente → Verilog-A próprio na Fase 6; ferramentas validadas na prática na Fases 2–3) |
-| 2 | Modelagem matemática e física | **EM ANDAMENTO** (A-0 executado; A-2 calibração térmica rodando) |
-| 3 | Simulação de células magnéticas | **EM ANDAMENTO** (A-1a: B_sw = 0,75 T @ 10 ns; A-1b + refino: J_sw malha ≈ 1,07× macrospin — reversão quase-coerente, macrospin validado para Fase 4; falta térmico MuMax3 + convergência dt do A-2) |
+| 2 | Modelagem matemática e física | **CONCLUÍDA** (solver macrospin validado: FDT 0,994 e 1,008 a dt=0,25 ps; anisotropia uniaxial corrigida; calibração térmica empírica taxa(Δ) com incerteza declarada — desvio vs Brown é física de Δ baixo, confirmado por convergência dt) |
+| 3 | Simulação de células magnéticas | **CONCLUÍDA** (A-1a: B_sw = 0,75 T @ 10 ns; A-1b + refino: J_sw malha ≈ 1,07× macrospin — reversão quase-coerente; A-0 v2: 2 ns ✓ 90% @ 12 MA/cm² 0,63 pJ, 1 ns ✗; térmico MuMax3 viável: 11 min/run, FDT por célula aprovado; retenção Δ = 59 robusta ~25 anos) |
 | 4 | Comparação de materiais e arquiteturas | Pendente (pré-requisito: consultas de patentes do `docs/paisagem_ip.md` — websearch bloqueado; alternativa: consulta manual) |
 | 5 | Matriz magnética 16×16 | Pendente |
 | 6 | Controladora e arquitetura de memória | Pendente (Ramulator 2 / ngspice / Xyce) |
