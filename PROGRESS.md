@@ -27,7 +27,9 @@ e consolidar o veredito de design da célula MHM-1.
   2× escrita/bit útil (~0,26 pJ — ainda metade do baseline original).
 
 ## Em andamento
-- Nada rodando neste momento (verificação MuMax3 concluída).
+- **A-4c rodando** (background, ~10–15 min): refino do bracket dos designs
+  vencedores — curva P(J) fina (60 traj/ponto), J_90 e custo por bit ÚTIL
+  (par diferencial H3 = 2×E) para doce30 e rapido20, nos alvos 2 ns e 1 ns.
 
 ## Próximos passos
 1. A-4c: refinar bracket do ponto-doce (30 nm / 1,0 nm / 4e5, J ∈ 6,5–8 MA/cm²)

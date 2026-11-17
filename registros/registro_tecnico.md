@@ -498,6 +498,11 @@
   pouco; os números do A-4b são CONSERVADORES, não otimistas.** O teste térmico
   (300 K, 40 traj) do macrospin segue como estimativa central; a malha térmica
   fica para a Fase 5/7 (custo 11 min/run).
+- **Destaque final (última linha do console)**: design de 20 nm @ 1 ns @
+  1,8×J_c0 (22,7 MA/cm²): **MALHA COMUTOU em 0,80 ns** (m_z = −0,996) —
+  o 1 ns é confirmado EM MALHA, não só no macrospin. Para o design de 30 nm,
+  o 1 ns depende de assistência térmica (300 K: 92,5% no macrospin; a 0 K
+  malha e macrospin não fecham em 1 ns — coerente).
 - Fase 4 — veredito parcial consolidado: célula 20–30 nm, Δ = 59,2 fixo,
   K_eff = 2,3–7,8e5 J/m³ → **1 ns e <1 pJ simultaneamente por STT puro**
   (0,13 pJ @ 2 ns; 0,15 pJ @ 1 ns, verificado em malha a 0 K);
