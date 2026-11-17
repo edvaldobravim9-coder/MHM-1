@@ -233,9 +233,67 @@
   (`randSeed(n)` semeia rand/randExp/randNorm/randInt do script Go).
 - Viabilidade térmica relançada com `ThermSeed`.
 
-### Em execução neste momento (~23:40)
-- Fila: reexecução do A-0 (limiar 0 K + P 300 K) com o solver corrigido;
-  teste de runs térmicos no MuMax3 (Temp>0, RK45, malha 2,5 nm).
+### Viabilidade térmica do MuMax3 — concluída (~00:30, `termico_viabilidade.py`)
+- Protocolo: malha 14×14 (2,5 nm), 300 K, RK45, `ThermSeed` — 4 runs.
+- **T1 ruído puro (J=0, 3 ns, seeds 1–2): 0 flips**; m_z mín = +0,925 → retenção
+  sã no nível da malha (Δ = 59,1: reversão total esperada ≈ e^(−59), confirmado).
+- **T2 assistência térmica (J = 6,5 MA/cm², 5 ns, seeds 1–2): 2/2 comutaram**
+  (m_z final ≈ −0,955). Abaixo do limiar 0 K da malha (6,5 → m_z = +0,786),
+  coerente com o A-0 macrospin a 300 K (5 ns @ 6 MA/cm² = 95%). Indicação n=2,
+  não estatística — mas fisicamente consistente em ambos os modelos.
+- **CUSTO (decisivo para a Fase 4+)**: wall ≈ 200 s / 3 ns (ruído puro) e
+  **≈ 655 s / 5 ns com STT** (≈ 11 min/run) na GT 1030 → campanha de 100 runs
+  ≈ 18–19 h = 1 noite local. **Não precisa Colab/Kaggle para n ~ 100.**
+- ⚠ **Equipartição da malha: em aberto** — <1−m_z²> = 0,107 medido vs a
+  referência "0,0085" impressa no script. A referência era a fórmula de
+  MACROSPIN (1/(2Δ)), que NÃO se aplica a 196 células (~392 modos térmicos →
+  valor esperado maior por construção). Discriminador lançado
+  (`diag_equipart_1celula.py`): 2×2×2, Aex = 0 (células independentes),
+  demag off, Ku = K_eff = 1,30e5 → Δ = 59,2 exato, fórmula macrospin válida.
+  Se ≈ 0,008–0,02 → FDT por célula correto e 0,107 é contagem de modos;
+  se ≈ 0,1 → amplitude térmica ~13× alta → investigar.
+- **API descoberta no caminho**: `Temp > 0` exige número PAR de células por eixo
+  (RNG térmico via FFT) — 1×1×1 panica com exit 2; usar 2×2×2 + Aex = 0.
+- Os runs T2 (<1−m_z²> ≈ 0,39) incluem a rotação de comutação — não são
+  referência de equilíbrio; usar só os runs T1.
+
+### Equipartição por célula — discriminador concluído (~01:20, `diag_equipart_1celula.py`)
+- Setup: 2×2×2 células, **Aex = 0** (8 macrospins independentes), demag off,
+  Ku = K_eff = 1,30e5 → Δ = 59,2 exato; 10 ns, 300 K, ThermSeed(1).
+- **MEDIDO: <1−m_z²> = 0,0200** (1002 amostras; m_z mín = +0,981, nunca saiu do poço).
+- **CORREÇÃO DE CONVENÇÃO (minha)**: a teoria "1/(2Δ) = 0,00845" impressa em v1
+  do teste usava a convenção errada. Equipartição correta para o macrospin:
+  E ≈ KV(m_x² + m_y²), 2 DOF quadráticos → **<1−m_z²> = kT/(K_eff·V) = 1/Δ ≈
+  0,0169** (o valor exato da integral de Boltzmann converge para 1/Δ a Δ alto;
+  a mesmo fórmula usada no diag_ruido: em Δ=3,7 ela dá 0,3171 ✓).
+  **Razão medido/teoria = 1,18** → FDT por célula do MuMax3 essencialmente
+  correto; resíduo ~18% compatível com autocorrelação (1002 amostras
+  correlacionadas em ~120 períodos de precessão) + viés de ruído congelado.
+- **Veredito**: o 0,107 da malha 14×14 é CONTAGEM DE MODOS (~392 DOF térmicos
+  em 196 células), não bug — o ruído térmico do MuMax3 está **APROVADO** para
+  as campanhas térmicas da Fase 4+.
+- Nota de método: para comparar equipartição malha vs macrospin no futuro,
+  somar os modos (teoria de equilíbrio discretizado) em vez de usar a fórmula
+  macrospin direta.
+
+
+### GitHub — publicado (00:57–01:05)
+- Repo: **github.com/edvaldobravim9-coder/MHM-1** (público, licença MIT).
+- Push completo: código, resultados, diários, docs (336 arquivos) + ferramentas
+  MuMax3/DLLs CUDA (**618 MB via Git LFS**, 3 objetos, 12 MB/s).
+- Commits: `d4031ff` (projeto), `ed90209` (MIT), `313d034` (tools via LFS).
+- `.gitignore`: `__pycache__`, `*.pyc`, `*.ovf` (dumps espaciais); tools/ versionado
+  a pedido do autor ("tudo no GitHub"). MuMax3 é GPLv3 — nota de fonte no repo pendente.
+- Conta limpa a pedido do autor: chatbox-ai, Zygisk-Il2CppDumper, robo-surebet e
+  sure-bot EXCLUÍDOS pelo usuário via navegador (exclusão é só do dono);
+  **backup mirror local pré-exclusão** em `C:\Users\edval\Desktop\github_backup_2026-11-17\`.
+- Automação restante: atualizações futuras = commit + push (auth já cacheada no
+  Git Credential Manager; sem novo login).
+
+### Em execução neste momento (~01:00)
+- `diag_dt_convergencia` (CPU): dt = 0,5 ps no Δ = 5,69 — física de Δ baixo vs
+  artefato de dt no desvio do A-2.
+- `diag_equipart_1celula` (GPU): discriminador de equipartição (acima).
 
 ### ACHADO MAJOR — bug estrutural no solver A-0 (20:00–20:30)
 - **A-2 v2 concluiu com 0/80 flips nos três raios** — impossível por estatística

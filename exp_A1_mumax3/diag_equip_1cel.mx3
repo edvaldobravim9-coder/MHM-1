@@ -1,0 +1,19 @@
+// Discriminador equiparticao: 8 celulas independentes (2x2x2, Aex=0), demag off, 300 K, 10 ns
+// NOTA API: Temp>0 exige numero PAR de celulas por eixo (RNG FFT) — 1x1x1 panica.
+// Com Aex=0 as 8 celulas NAO tem acoplamento de troca → 8 macrospins independentes.
+SetGridSize(2, 2, 2)
+SetCellSize(3.544600e-08, 3.544600e-08, 1.5e-9)
+Msat  = 600e3
+Aex   = 0
+alpha = 0.01
+Ku1   = 1.300000e+05
+anisU = vector(0, 0, 1)
+EnableDemag = false
+Temp  = 300
+ThermSeed(1)
+m = Uniform(0.01, 0, 0.99995)
+mz := m.Comp(2)
+tableadd(mz)
+TableAutoSave(1e-11)
+run(1e-8)
+tablesave()
