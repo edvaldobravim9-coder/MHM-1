@@ -52,11 +52,18 @@ e consolidar o veredito de design da célula MHM-1.
   em ngspice + PTM grátis) e A-4f (SOT-write, H4) na fila; H5 avaliar/arquivar.
 
 ## Próximos passos
-1. A-4c2: solver LLGS de 2 sub-redes (H2 ferrimagnético) — validação contra macrospin.
+1. A-4c2: solver LLGS de 2 sub-redes (H2 ferrimagnético) — validação contra macrospin
+   (campanha em background; ver Em andamento).
 2. F6.1: SA real em ngspice + modelos PTM grátis (ataque ao ponto fraco de leitura).
 3. A-4f: estimativa de célula SOT-write (H4 — a hipótese menos coberta).
-4. H5 (3D): arquivar com justificativa (recomendação registrada no paisagem_ip.md §4).
-5. Fase 5 (matriz 16×16, C_BL real) e Fase 6 (controladora) em seguida.
+4. **Dois perfis de design** (pedido do usuário, 17/11): mesma célula, duas
+   organizações de array — **Perfil-P** (persistência/trabalho: blocos grandes,
+   latência de escrita) e **Perfil-B** (banda/jogos: bancos paralelos; a H4 —
+   escrita paralela SOT + seleção VCMA — é o mecanismo de vazão). Avaliar na
+   Fase 5 (C_BL dos dois layouts) e Fase 6 (sistema com Ramulator2); ressalva:
+   leitura em rajada (ponto fraco) pode limitar o Perfil-B.
+5. H5 (3D): arquivar com justificativa (recomendação registrada no paisagem_ip.md §4).
+6. Fase 5 (matriz 16×16, C_BL real) e Fase 6 (controladora) em seguida.
 
 ## Pendências de fonte (bloqueadas pela busca web 402)
 - β do VCMA (faixa relatada ~20–300 fJ/(V·m)) — mapeamento V_b marcado como ILUSTRATIVO.
