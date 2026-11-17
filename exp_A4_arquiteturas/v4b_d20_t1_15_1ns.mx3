@@ -1,0 +1,25 @@
+// verifica A-4b: d = 20 nm, t = 1.0 nm, Ms = 400000.0e5
+SetGridSize(8, 8, 1)
+SetCellSize(2.5e-9, 2.5e-9, 1.000e-09)
+Msat  = 4.000000e+05
+Aex   = 15e-12
+alpha = 0.01
+Ku1   = 8.810372e+05
+anisU = vector(0, 0, 1)
+Temp  = 0
+
+DisableZhangLiTorque = true
+Pol = 0.40
+Lambda = 1
+EpsilonPrime = 0
+FixedLayer = vector(0, 0, 1)
+FixedLayerPosition = FIXEDLAYER_TOP
+// SINAL: J negativo comuta P→AP (diag_stt_sinal.py)
+J = vector(0, 0, -1.893247e+11)
+
+m = Uniform(0.01, 0, 0.99995)
+mz := m.Comp(2)
+tableadd(mz)
+TableAutoSave(1e-11)
+run(1.0e-09)
+tablesave()

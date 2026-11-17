@@ -489,3 +489,18 @@
 - Fase 6 (ngspice) refina o SA (carga-transferência) com o Verilog-A do
   macrospin; o A-4d é a análise de rede que dimensiona o problema.
 
+### Verificação MuMax3 do A-4b (~04:10): CONFIRMADA — malha ≤ macrospin
+- Design 30 nm (B_keff = 1,73 T): malha comuta a 1,58 ns vs macrospin 1,68 ns
+  a 1,8×J_c0 (0 K) → razão **0,94**.
+- Design 20 nm (B_keff = 3,90 T): malha 1,20 ns vs 1,24 ns (1,5×) e 0,80 ns vs
+  0,85 ns (1,8×) → razões **0,97 e 0,94**.
+- Em todos os pontos: malha comuta a J ≤ macrospin → **nucleação ajuda um
+  pouco; os números do A-4b são CONSERVADORES, não otimistas.** O teste térmico
+  (300 K, 40 traj) do macrospin segue como estimativa central; a malha térmica
+  fica para a Fase 5/7 (custo 11 min/run).
+- Fase 4 — veredito parcial consolidado: célula 20–30 nm, Δ = 59,2 fixo,
+  K_eff = 2,3–7,8e5 J/m³ → **1 ns e <1 pJ simultaneamente por STT puro**
+  (0,13 pJ @ 2 ns; 0,15 pJ @ 1 ns, verificado em malha a 0 K);
+  leitura exige PAR diferencial (H3 requisito); VCMA = −30% energia (β fonte
+  pendente).
+
