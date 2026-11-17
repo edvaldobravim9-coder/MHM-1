@@ -1,0 +1,25 @@
+// viabilidade térmica: J = +6.50e+10 A/m2, 300 K, 0 ns, seed 1
+SetGridSize(14, 14, 1)
+SetCellSize(2.5e-9, 2.5e-9, 1.5e-9)
+Msat  = 600e3
+Aex   = 15e-12
+alpha = 0.01
+Ku1   = 335e3
+anisU = vector(0, 0, 1)
+Temp  = 300
+ThermSeed(1)
+DisableZhangLiTorque = true
+Pol = 0.40
+Lambda = 1
+EpsilonPrime = 0
+FixedLayer = vector(0, 0, 1)
+FixedLayerPosition = FIXEDLAYER_TOP
+// SINAL: J negativo comuta P→AP
+J = vector(0, 0, -6.500000e+10)
+
+m = Uniform(0.01, 0, 0.99995)
+mz := m.Comp(2)
+tableadd(mz)
+TableAutoSave(1e-11)
+run(5.0e-09)
+tablesave()

@@ -1,0 +1,16 @@
+# MHM-1 — regras de versionamento
+
+# Binários do MuMax3 (639 MB) — não versionar; baixar de mumax.github.io/download
+tools/
+
+# Cache Python
+__pycache__/
+*.pyc
+
+# Dumps espaciais do MuMax3 (podem ficar enormes); tabelas .txt de evidência são mantidas
+*.ovf
+*.dic
+
+# Sistema / editor
+Thumbs.db
+Desktop.ini

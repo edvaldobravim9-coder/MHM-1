@@ -1,0 +1,33 @@
+// =====================================================================
+// MHM-1 — Diagnóstico D: idem smoke test (Temp=300 K, B=-1 T), mas com
+// dt = 0,2 ps. Se m_z convergir para -z, o dt=1 ps era grande demais
+// para o ruído térmico por célula nesta malha.
+// =====================================================================
+
+SetGridSize(40, 40, 1)
+SetCellSize(1e-9, 1e-9, 1.5e-9)
+
+Msat  = 600e3
+Aex   = 15e-12
+alpha = 0.01
+Ku1   = 356e3
+anisU = vector(0, 0, 1)
+Temp  = 300
+B_ext = vector(0, 0, -1.0)
+
+m = Uniform(0.01, 0, 0.99995)
+
+mz := m.Comp(2)
+tableadd(mz)
+tableadd(Edens_demag)
+tableadd(Edens_anis)
+tableadd(Edens_exch)
+tableadd(Edens_total)
+TableAutoSave(5e-12)
+
+SetSolver(2)
+FixDt = 2e-13
+
+run(3e-9)
+tablesave()
+print("diagnostico D concluido")

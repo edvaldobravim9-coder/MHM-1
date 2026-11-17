@@ -1,0 +1,48 @@
+// =====================================================================
+// MHM-1 — Experimento A-1 (FASE 3): camada livre de p-MTJ no MuMax3
+// STATUS: TEMPLATE — NAO EXECUTADO AINDA. Sintaxe a validar contra a
+// API do mumax3.12 (https://mumax.github.io/api.html) antes de rodar.
+//
+// Objetivo: comparar com o macrospin (A-0) — nucleação de domínios deve
+// REDUZIR a corrente de comutação em relação ao macrospin.
+//
+// Instalação (Windows):
+//   1. Baixar mumax3.12 para Windows em https://mumax.github.io/download.html
+//   2. Exigir driver NVIDIA atualizado (GT 1030 = CC 6.1, suportada)
+//   3. mumax3 mtj_camada_livre.mx3   (GUI web em http://127.0.0.1:35367)
+//
+// Verificação de driver/GPU:
+//   nvidia-smi --query-gpu="driver_version,compute_cap" --format="csv"
+// =====================================================================
+
+// --- grade: 64 nm x 64 nm x 1,5 nm (células de 1x1x1,5 nm) ---
+N := 64, 64, 1          // TODO validar sintaxe setgridsize/setcellsize
+setgridsize(N, N, 1)
+setcellsize(1e-9, 1e-9, 1.5e-9)
+
+// --- material: CoFeB (~1,5 nm) com PMA (valores do A-0) ---
+Msat  = 600e3           // A/m
+Aex   = 15e-12          // J/m  (típico CoFeB 10–20 pJ/m)
+alpha = 0.01
+Ku1   = 356e3           // J/m3 — magnetocristalina; efetiva = Ku1 - ½*mu0*Msat^2
+                        //       = 356e3 - 226e3 = 1.3e5 J/m3 (igual ao A-0)
+anisU = vector(0, 0, 1)
+Temp  = 300             // K — agitação térmica de Brown
+
+// --- estado inicial: ~+z com inclinação mínima ---
+m = uniform(0.01, 0, 0.99995)
+
+// --- comutação por STT (janela de junção) ---
+// TODO (FASE 3): configurar região fixa + torque Slonczewski conforme a API:
+//   defregion(1, ...) / FixedLayer / J / Pol / Lambda ...
+// Alternativa SOT (Experimento C): corrente na base de metal pesado via
+// Zhang-Li com ângulo de polarização em plano — validar unidades na API.
+
+// --- saídas ---
+tableadd(mz)
+tableadd(E)
+tableadd(t)
+autosave(m, 100e-12)
+
+// pulso: aplicado pelas linhas de torque acima; duração 5 ns
+run(5e-9)

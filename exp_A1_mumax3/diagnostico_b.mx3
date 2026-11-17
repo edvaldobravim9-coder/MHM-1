@@ -1,0 +1,30 @@
+// =====================================================================
+// MHM-1 — Diagnóstico B: estado inicial no plano (x). Se K_eff > 0,
+// deve rotacionar para +z (eixo fácil perpendicular). Se ficar no plano,
+// a anisotropia efetiva da malha é negativa → demag vence Ku1.
+// =====================================================================
+
+SetGridSize(40, 40, 1)
+SetCellSize(1e-9, 1e-9, 1.5e-9)
+
+Msat  = 600e3
+Aex   = 15e-12
+alpha = 0.01
+Ku1   = 356e3
+anisU = vector(0, 0, 1)
+Temp  = 0
+B_ext = vector(0, 0, 0)
+
+m = Uniform(1, 0, 0)         // no plano
+
+mz := m.Comp(2)
+tableadd(mz)
+tableadd(Edens_demag)
+tableadd(Edens_anis)
+tableadd(Edens_Zeeman)
+tableadd(Edens_exch)
+tableadd(Edens_total)
+
+relax()
+tablesave()
+print("diagnostico B concluido")

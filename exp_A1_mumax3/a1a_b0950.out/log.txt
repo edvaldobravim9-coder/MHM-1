@@ -1,0 +1,33 @@
+//mumax 3.12 [windows_amd64 go1.26.0(gc) CUDA-12.6]
+//commit hash: 6e5c98bb
+//CPU info: Intel(R) Core(TM) i3-10105F CPU @ 3.70GHz, Cores: 8, 3696 MHz
+//GPU info: NVIDIA GeForce GT 1030(2047MB), CUDA Driver 12.7, cc=6.1, using cc=61 PTX
+//OS  info: Windows OS, Hostname: DESKTOP-55UKU11
+//Timestamp: 2026-11-16 19:13:34
+//(c) Arne Vansteenkiste, Dynamat LAB, Ghent University, Belgium
+//This is free software without any warranty. See license.txt
+//********************************************************************//
+//  If you use mumax in any work or publication,                      //
+//  we kindly ask you to cite the references in references.bib        //
+//********************************************************************//
+//output directory: a1a_b0950.out/
+SetGridSize(14, 14, 1)
+SetCellSize(2.5e-9, 2.5e-9, 1.5e-9)
+Msat = 600e3
+Aex = 15e-12
+alpha = 0.01
+Ku1 = 335e3
+anisU = vector(0, 0, 1)
+Temp = 0
+B_ext = vector(0, 0, -0.9500)
+m = Uniform(0.01, 0, 0.99995)
+mz := m.Comp(2)
+tableadd(mz)
+TableAutoSave(1e-11)
+run(1.0e-08)
+tablesave()
+//********************************************************************//
+//Please cite the following references, relevant for your simulation. //
+//See bibtex file in output folder for justification.                 //
+//********************************************************************//
+//   * Vansteenkiste et al., AIP Adv. 4, 107133 (2014).

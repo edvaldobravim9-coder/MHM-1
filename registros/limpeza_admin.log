@@ -1,0 +1,40 @@
+﻿**********************
+Início da transcrição do Windows PowerShell
+Hora de início: 20261116174721
+Nome de Usuário: DESKTOP-55UKU11\edval
+Executar como Usuário: DESKTOP-55UKU11\edval
+Nome da Configuração: 
+Computador: DESKTOP-55UKU11 (Microsoft Windows NT 10.0.19045.0)
+Aplicativo Host: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\Users\edval\Desktop\MHM-1\ferramentas\limpeza_admin.ps1
+ID do Processo: 112580
+PSVersion: 5.1.19041.7844
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.7844
+BuildVersion: 10.0.19041.7844
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcrição iniciada, o arquivo de saída é C:\Users\edval\Desktop\MHM-1\registros\limpeza_admin.log
+=== LIMPEZA ADMIN MHM-1 - livre antes: 12,27 GB ===
+Executando cleanmgr /sagerun:1 (pode demorar)...
+cleanmgr concluido.
+Limpando SoftwareDistribution\Download...
+Cache do Windows Update limpo.
+Executando DISM /StartComponentCleanup (pode demorar 10-20 min)...
+
+Ferramenta de Gerenciamento e Manutenção de Imagens de Implantação
+Versão: 10.0.19041.3636
+
+Versão da Imagem: 10.0.19045.7846
+
+[=====                      10.0%                          ]
+[==========================100.0%==========================]
+A operação foi concluída com êxito.
+DISM concluido.
+=== FIM - livre depois: 13,17 GB | liberado: 0,90 GB ===
+**********************
+Fim da transcrição do Windows PowerShell
+Hora de término: 20261116175340
+**********************

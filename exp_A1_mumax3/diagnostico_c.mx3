@@ -1,0 +1,33 @@
+// =====================================================================
+// MHM-1 — Diagnóstico C: reversão DETERMINÍSTICA (Temp=0) sob B=-1 T.
+// Se m_z -> -1 limpo, a estática+dinâmica são boas e o problema é o
+// acoplamento ruído térmico x malha.
+// =====================================================================
+
+SetGridSize(40, 40, 1)
+SetCellSize(1e-9, 1e-9, 1.5e-9)
+
+Msat  = 600e3
+Aex   = 15e-12
+alpha = 0.01
+Ku1   = 356e3
+anisU = vector(0, 0, 1)
+Temp  = 0
+B_ext = vector(0, 0, -1.0)
+
+m = Uniform(0.01, 0, 0.99995)
+
+mz := m.Comp(2)
+tableadd(mz)
+tableadd(Edens_demag)
+tableadd(Edens_anis)
+tableadd(Edens_exch)
+tableadd(Edens_total)
+TableAutoSave(5e-12)
+
+SetSolver(2)
+FixDt = 1e-12
+
+run(3e-9)
+tablesave()
+print("diagnostico C concluido")

@@ -1,0 +1,35 @@
+// =====================================================================
+// MHM-1 — Teste de fumaça MuMax3 (FASE 3 — validação da GPU GT 1030)
+// Célula p-MTJ 40x40x1,5 nm, CoFeB com anisotropia perpendicular.
+// Verificação física: B_ext = -0,5 T > B_keff (0,4333 T) deve reverter
+// a magnetização para -z em ~1 ns. Se m_z final ≈ -1, GPU + física OK.
+// =====================================================================
+
+SetGridSize(40, 40, 1)
+SetCellSize(1e-9, 1e-9, 1.5e-9)
+
+Msat  = 600e3          // A/m
+Aex   = 15e-12         // J/m
+alpha = 0.01
+Ku1   = 356e3          // J/m3 -> anisotropia efetiva = Ku1 - ½·µ0·Msat² = 1,3e5 (igual ao A-0)
+anisU = vector(0, 0, 1)
+Temp  = 300            // K (agitação térmica de Brown)
+
+m = Uniform(0.01, 0, 0.99995)   // estado inicial ~ +z com leve inclinação
+
+B_ext = vector(0, 0, -1.0)      // pulso de campo de reversão (tesla) — bem acima do
+                                // limiar: com demag real da malha, B_keff ≈ 0,47 T
+
+mz := m.Comp(2)                 // média de m_z (API: m.Comp(i) + tableadd do campo)
+tableadd(mz)
+tableadd(Edens_total)
+TableAutoSave(5e-12)            // série temporal: 1 linha a cada 5 ps (~1000 linhas)
+
+// Solver Heun ADAPTATIVO com passo fixo: é o esquema correto para o termo
+// ESTOCÁSTICO (Temp ≠ 0). RK4 (solver 4) bombeia energia com ruído — testado:
+// m_z colapsa ao equador com energia de troca não física. Heun + FixDt = correto e rápido.
+SetSolver(2)
+FixDt = 1e-12
+
+run(5e-9)
+tablesave()                     // descarrega o buffer da tabela em table.txt

@@ -1,0 +1,17 @@
+// viabilidade térmica: J = +0.00e+00 A/m2, 300 K, 0 ns, seed 2
+SetGridSize(14, 14, 1)
+SetCellSize(2.5e-9, 2.5e-9, 1.5e-9)
+Msat  = 600e3
+Aex   = 15e-12
+alpha = 0.01
+Ku1   = 335e3
+anisU = vector(0, 0, 1)
+Temp  = 300
+ThermSeed(2)
+
+m = Uniform(0.01, 0, 0.99995)
+mz := m.Comp(2)
+tableadd(mz)
+TableAutoSave(1e-11)
+run(3.0e-09)
+tablesave()

@@ -1,0 +1,45 @@
+// =====================================================================
+// MHM-1 — Teste de fumaça v2 (FASE 3 — validação da plataforma MuMax3)
+// Malha: 35x35x1,5 nm em células de 2,5 nm (14x14x1) — mesma área do
+// círculo de 40 nm do A-0, célula 4x mais relaxada em rigidez de troca.
+// Duas fases:
+//   1) Relax com B=0, Temp=0 → mede Edens_demag → N_z real da malha
+//   2) Pulso B=-1 T, Temp=300 K → m_z deve espiralar até ~-1 em ~4 ns
+// Solver: Heun adaptativo com FixDt=1e-13 (limite de estabilidade da
+// troca nesta malha ~145 fs; 100 fs dá margem 1,4x).
+// =====================================================================
+
+SetGridSize(14, 14, 1)
+SetCellSize(2.5e-9, 2.5e-9, 1.5e-9)
+
+Msat  = 600e3          // A/m (CoFeB, fonte: A-0)
+Aex   = 15e-12         // J/m
+alpha = 0.01
+Ku1   = 335e3          // J/m3 — calibrado para K_eff ~ 1,33e5 com N_z ~ 0,895
+anisU = vector(0, 0, 1)
+
+mz := m.Comp(2)
+tableadd(mz)
+tableadd(Edens_demag)
+tableadd(Edens_anis)
+tableadd(Edens_exch)
+tableadd(Edens_total)
+TableAutoSave(1e-12)
+
+SetSolver(2)
+FixDt = 1e-13
+
+// ---- Fase 1: calibração estática (N_z da malha) ----
+Temp  = 0
+B_ext = vector(0, 0, 0)
+m = Uniform(0, 0, 1)
+relax()
+print("FASE 1 ok: Edens_demag apos relax (deve ser ~+2.0e5 se N_z~0,9)")
+
+// ---- Fase 2: reversão sob campo com agitação térmica ----
+Temp  = 300
+B_ext = vector(0, 0, -1.0)
+m = Uniform(0.01, 0, 0.99995)
+run(5e-9)
+tablesave()
+print("FASE 2 ok: m_z final deve ser ~ -1")

@@ -1,0 +1,13 @@
+grandeza,valor,unidade
+diametro,40.0,nm
+espessura_FL,1.5,nm
+Ms,600000.0,A/m
+K_eff,130000.0,J/m3
+alpha,0.01,-
+B_keff,0.43333333333333335,T
+Delta,59.16160370473207,kBT
+R_P,7957.7471545947665,ohm
+R_AP,19894.367886486914,ohm
+TMR,150.0,%
+J_c0_macrospin,5.539948031428301,MA/cm2
+I_c0,69.61704014721755,uA

@@ -1,0 +1,16 @@
+// A-1a: pulso de campo B = -0.6000 T (reversao)
+SetGridSize(14, 14, 1)
+SetCellSize(2.5e-9, 2.5e-9, 1.5e-9)
+Msat  = 600e3
+Aex   = 15e-12
+alpha = 0.01
+Ku1   = 335e3
+anisU = vector(0, 0, 1)
+Temp  = 0
+B_ext = vector(0, 0, -0.6000)
+m = Uniform(0.01, 0, 0.99995)
+mz := m.Comp(2)
+tableadd(mz)
+TableAutoSave(1e-11)
+run(1.0e-08)
+tablesave()

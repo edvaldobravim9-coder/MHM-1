@@ -1,0 +1,2 @@
+# t (s)	mx ()	my ()	mz ()	m_z ()	Edens_demag (J/m3)	Edens_anis (J/m3)	Edens_Zeeman (J/m3)	Edens_exch (J/m3)	Edens_total (J/m3)
+0	0.9999496	-1.0244549e-09	0	0	10766.973	0	0	20.253532	10787.225

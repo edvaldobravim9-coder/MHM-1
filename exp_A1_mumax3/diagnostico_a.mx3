@@ -1,0 +1,30 @@
+// =====================================================================
+// MHM-1 — Diagnóstico A: estabilidade do eixo +z sem campo, sem ruído.
+// Se K_eff > 0, m=+z deve permanecer em +z após Relax().
+// Decomposição de energia para auditar demag/anisotropia/Zeeman.
+// =====================================================================
+
+SetGridSize(40, 40, 1)
+SetCellSize(1e-9, 1e-9, 1.5e-9)
+
+Msat  = 600e3
+Aex   = 15e-12
+alpha = 0.01
+Ku1   = 356e3
+anisU = vector(0, 0, 1)
+Temp  = 0                    // determinístico: isola a física estática
+B_ext = vector(0, 0, 0)
+
+m = Uniform(0, 0, 1)         // exatamente +z
+
+mz := m.Comp(2)
+tableadd(mz)
+tableadd(Edens_demag)
+tableadd(Edens_anis)
+tableadd(Edens_Zeeman)
+tableadd(Edens_exch)
+tableadd(Edens_total)
+
+relax()
+tablesave()
+print("diagnostico A concluido")
